@@ -13,21 +13,14 @@ function main(config) {
   const providerBase = "https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes";
 
   const rawNodeNames = Array.isArray(config.proxies)
-    ? config.proxies.map(p => p && p.name).filter(n => typeof n === "string" && n.length)
+    ? config.proxies.filter(p => p && p.type !== "direct" && p.name !== "DIRECT")
+      .map(p => p.name).filter(n => typeof n === "string" && n.length)
     : [];
   const metadataNode = /(剩余流量|流量剩余|套餐到期|到期时间|有效期|官网|官方|(?:^|[\s:：|｜_-])(traffic|remaining|expire|expiry|expires|quota|bandwidth|website|homepage)(?=[\s:：|｜_-]|$))/i;
   const nodeNames = rawNodeNames.filter(n => !metadataNode.test(n));
   const providerNames = config["proxy-providers"] && typeof config["proxy-providers"] === "object"
     ? Object.keys(config["proxy-providers"]) : [];
   if (!nodeNames.length && !providerNames.length) return config;
-
-  const hrulesRulePrefix = "RULE-SET,hrules-";
-  const originalRules = Array.isArray(config.rules)
-    ? config.rules.filter(r => !(typeof r === "string" && r.startsWith(hrulesRulePrefix)))
-    : [];
-  const nonTerminalHostRules = originalRules.filter(r =>
-    !(typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()))
-  );
 
   const existingGroups = Array.isArray(config["proxy-groups"]) ? config["proxy-groups"] : [];
   const owned = new Set([
@@ -42,14 +35,24 @@ function main(config) {
   if (nodeNames.length) source.proxies = nodeNames;
   if (providerNames.length) {
     source.use = providerNames;
-    source["exclude-filter"] = "剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage";
+    source["exclude-filter"] = "^DIRECT$|剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage";
   }
   const health = {url:"https://www.gstatic.com/generate_204",interval:300};
   const infraGroup = "🛰️ Hrules 基础设施 [系统]";
   // Hidden/non-scene transport group: provider downloads may use it, user scenes may not.
-  const infraCandidates = nodeNames.length ? nodeNames : [];
-  if (infraCandidates.length) groups.push({name:infraGroup,type:"select",hidden:true,proxies:infraCandidates});
-  const sceneGroup = (name, list) => list.length ? {name,type:"select",proxies:list} : Object.assign({name,type:"select"},source);
+  // It must exist for inline-node, provider-only, and mixed subscriptions.
+  const infra = {name:infraGroup,type:"url-test",hidden:true,...health};
+  if (nodeNames.length) infra.proxies = nodeNames;
+  if (providerNames.length) {
+    infra.use = providerNames;
+    infra["exclude-filter"] = source["exclude-filter"];
+  }
+  groups.push(infra);
+  const sceneGroup = (name, list) => {
+    const g = Object.assign({name,type:"select"},source);
+    if (list.length) g.proxies = list;
+    return g;
+  };
 
   const regions = [
     ["us","🇺🇸 美国 [地区]",/(美国|United States|Los Angeles|San Jose|Seattle|Dallas|New York|🇺🇸|(^|[^A-Za-z])US([^A-Za-z]|$)|(^|[^A-Za-z])USA([^A-Za-z]|$))/i],
@@ -137,7 +140,6 @@ function main(config) {
   for (const [key,id] of defs) {
     providers[key]={type:"http",behavior:"classical",format:"yaml",url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600,proxy:infraGroup};
   }
-  providers["hrules-cn-domain"]={type:"http",behavior:"domain",format:"mrs",url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",path:"./providers/hrules-cn-domain.mrs",interval:21600,proxy:infraGroup};
   providers["hrules-cn-ip"]={type:"http",behavior:"ipcidr",format:"mrs",url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",path:"./providers/hrules-cn-ip.mrs",interval:21600,proxy:infraGroup};
   config["rule-providers"]=providers;
 
@@ -177,10 +179,9 @@ function main(config) {
   r.push("RULE-SET,hrules-apple-private-relay-route,"+(fine ? "🍎 Apple / iCloud [场景]" : "🌐 海外应用 [场景]"));
   r.push("RULE-SET,hrules-apple-global,"+(fine ? "🍎 Apple / iCloud [场景]" : "🌐 海外应用 [场景]"));
   r.push("RULE-SET,hrules-mainstream-proxy,🌐 海外应用 [场景]");
-  r.push("RULE-SET,hrules-cn-domain,DIRECT");
   r.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
 
-  config.rules=r.concat(nonTerminalHostRules,["MATCH,🚀 漏网之鱼 [自选]"]);
+  config.rules=r.concat(["MATCH,🚀 漏网之鱼 [自选]"]);
   config.mode="rule";
   return config;
 }

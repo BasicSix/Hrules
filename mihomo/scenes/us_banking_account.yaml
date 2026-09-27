@@ -1,10 +1,8 @@
 payload:
 - DOMAIN-SUFFIX,ally.com
 - DOMAIN-SUFFIX,americanexpress.com
-- DOMAIN-SUFFIX,bankofamerica.com
 - DOMAIN-SUFFIX,bac-assets.com
-- DOMAIN-SUFFIX,online-metrix.net
-- DOMAIN-SUFFIX,dv.socure.io
+- DOMAIN-SUFFIX,bankofamerica.com
 - DOMAIN-SUFFIX,capitalone.com
 - DOMAIN-SUFFIX,chase.com
 - DOMAIN-SUFFIX,chasecdn.com
@@ -12,8 +10,10 @@ payload:
 - DOMAIN-SUFFIX,citicards.com
 - DOMAIN-SUFFIX,citizensbank.com
 - DOMAIN-SUFFIX,discover.com
+- DOMAIN-SUFFIX,dv.socure.io
 - DOMAIN-SUFFIX,fifththird.com
 - DOMAIN-SUFFIX,key.com
+- DOMAIN-SUFFIX,online-metrix.net
 - DOMAIN-SUFFIX,pnc.com
 - DOMAIN-SUFFIX,regions.com
 - DOMAIN-SUFFIX,td.com

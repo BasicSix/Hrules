@@ -166,13 +166,6 @@ rule-providers:
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/cn_direct.yaml
     path: ./providers/cn_direct.yaml
     interval: 21600
-  hrules-cn-domain:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
-    path: ./providers/hrules-cn-domain.mrs
-    interval: 21600
   hrules-cn-ip:
     type: http
     behavior: ipcidr
@@ -197,6 +190,5 @@ rules:
 - RULE-SET,hrules-apple-private-relay-route,🍎 Apple / iCloud [场景]
 - RULE-SET,hrules-apple-global,🍎 Apple / iCloud [场景]
 - RULE-SET,hrules-mainstream-proxy,🌐 海外应用 [场景]
-- RULE-SET,hrules-cn-domain,DIRECT
 - RULE-SET,hrules-cn-ip,DIRECT,no-resolve
 - MATCH,🚀 漏网之鱼 [自选]

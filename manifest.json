@@ -3,19 +3,19 @@
   "version": "v0.1.0-rc1",
   "channel": "rc",
   "release_status": "release_candidate",
-  "generated_from_commit": "8d0c87760e6f8747a76f48c381a3bca739853649",
+  "generated_from_commit": "0cc57d2efafb17fb728969c291be491511d07547",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
       "path": "mihomo/editions/hrules-standard.js",
-      "sha256": "0e63e10da60ebf881531839ec2728884dd49ad67efed82e37bf0a80b41669959",
+      "sha256": "2ae441423187c87efd5a9fbc5ce93991fe27353f9cfd77a246d2c8aaf932f60c",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "standard"
     },
     {
       "path": "mihomo/editions/hrules-strict.js",
-      "sha256": "1443f2c89fc53b2f48ea565051f86485ce31c95cc3164b7b86d40c4f1862b051",
+      "sha256": "a523b5bb17567d266024839bdb47c8a763bc2980a81f560b3ac706f427af5c96",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "strict"
@@ -236,11 +236,11 @@
     },
     {
       "path": "mihomo/rules/crypto-shared-risk.yaml",
-      "sha256": "a1d644d2547774ec01c2d23ab1127f4633dacad935d52eceb8d52672567f9c0c",
+      "sha256": "02dae199255d988864665d97227cea237d1eca6ca969c8fd9ec96985527eaac7",
       "module": "crypto-shared-risk",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 5
+      "entries": 4
     },
     {
       "path": "mihomo/rules/discord.yaml",
@@ -316,11 +316,11 @@
     },
     {
       "path": "mihomo/rules/gemini.yaml",
-      "sha256": "24d6b0ae32297892a61619d2857f7970e66277b41af9a8688151d4ea8140a995",
+      "sha256": "6386973ccdb6661e2f2c82448969cdacd1223297afeef42ad78b2d34fccf2603",
       "module": "gemini",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 45
+      "entries": 44
     },
     {
       "path": "mihomo/rules/gemini-crypto.yaml",
@@ -540,11 +540,11 @@
     },
     {
       "path": "mihomo/rules/primevideo.yaml",
-      "sha256": "2eeed9f43c5e2e7e556f3a3e8bce57a1291fa04e19f9f1817f4e0d4b8dde6f16",
+      "sha256": "97188a2dab7c51dd8e3989dacc52e75c549f836beec477652ac767b61fc8fd37",
       "module": "primevideo",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 6
+      "entries": 5
     },
     {
       "path": "mihomo/rules/private.yaml",
@@ -788,7 +788,7 @@
     },
     {
       "path": "mihomo/scenes/apple_global.yaml",
-      "sha256": "e62ce6b44fc0441849995363b471f783eaf2eeb0c880fa01c105ca836caca7ec",
+      "sha256": "3622ddeb0886f7e93496d5b7d143848d81d0d3c7f08ebd43aea81b30940ec096",
       "scene": "apple_global",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -800,7 +800,7 @@
     },
     {
       "path": "mihomo/scenes/apple_intelligence_route.yaml",
-      "sha256": "e1b6931d9e65e72df1fb1c446cd6602bf9cbe96ecea4cc08ba7a931b24c241c1",
+      "sha256": "09265a2115394c9e55460d8ca5261f040ac69a5319516d07e0e0f2b468f6db11",
       "scene": "apple_intelligence_route",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -811,7 +811,7 @@
     },
     {
       "path": "mihomo/scenes/apple_private_relay_route.yaml",
-      "sha256": "b74af11e0ced15e53be78ad22586903f7d055e602ccb94d360a6ae5fdb33ad4d",
+      "sha256": "864dfb6aa199adc010b5403f363178110ab438b4dc2bb517b687ed0f29c2eae5",
       "scene": "apple_private_relay_route",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -822,7 +822,7 @@
     },
     {
       "path": "mihomo/scenes/brokerage_account.yaml",
-      "sha256": "3821083af96fc306c5b6c75013d15ecfd1d0d16c71300e61d2c12db23357bf56",
+      "sha256": "8c38208531a0f9c556caead6e10a08dfde7c16fad333ff3974c30dbfdedd111a",
       "scene": "brokerage_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -846,11 +846,11 @@
     },
     {
       "path": "mihomo/scenes/cn_direct.yaml",
-      "sha256": "ed7a7aaf5123fd94e290940f424de532c775b9a8f9810e3334e796bd081e3cb8",
+      "sha256": "797c5cebe1d3a858ddcbb7ce0b8b35adbe14dd053c3e84962dbc6f93e926624a",
       "scene": "cn_direct",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 10,
+      "entries": 6573,
       "modules": [
         "apple-cn",
         "cn",
@@ -859,11 +859,11 @@
     },
     {
       "path": "mihomo/scenes/crypto_account.yaml",
-      "sha256": "187423884c05b73943c6116304d0ad3158ed8bad73c1c932fa5071e3fe495785",
+      "sha256": "185056c53eb253deb2695aeffca9878087eaa3e15542676b0919588651066ba9",
       "scene": "crypto_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 63,
+      "entries": 62,
       "modules": [
         "binance",
         "bitfinex",
@@ -890,7 +890,7 @@
     },
     {
       "path": "mihomo/scenes/financial_account.yaml",
-      "sha256": "b574d06ac0fec72f9611467888ec4ff5c15565366f4d298ad4604f3caebb8c34",
+      "sha256": "07b3381af3be899f497084ef262f6482e6382a4210ca14139a196c9d8b4e11c8",
       "scene": "financial_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -911,11 +911,11 @@
     },
     {
       "path": "mihomo/scenes/general_ai.yaml",
-      "sha256": "6c48b065e2d5087bfcd8396513a640616b7ef89f5026c5d60aa9f46c4e029a83",
+      "sha256": "470c753b62c623f919bbf52fd63e6116a7eb6c164ec1e101f4302ceee200a9dc",
       "scene": "general_ai",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 92,
+      "entries": 91,
       "modules": [
         "ai-mainstream",
         "copilot-ai",
@@ -926,7 +926,7 @@
     },
     {
       "path": "mihomo/scenes/mainstream_proxy.yaml",
-      "sha256": "073174952f047992f2a03a4ba4b315b0cd1d9be7516b9f7db63355ca845d5ed9",
+      "sha256": "0389509e7c16e89aea5c72b2ba375c3ce39f4316c376f841204d36f92887bef5",
       "scene": "mainstream_proxy",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -944,7 +944,7 @@
     },
     {
       "path": "mihomo/scenes/network_test.yaml",
-      "sha256": "8b64e5bbc0da07dd30b11f4feef99012c39158e126aaf2d902dcff7ebfe84b46",
+      "sha256": "7cfbe39a0761749a91fb4af97abb28b1bb50d1b2906ab303c4a9a96c7dcd838b",
       "scene": "network_test",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -955,7 +955,7 @@
     },
     {
       "path": "mihomo/scenes/private_direct.yaml",
-      "sha256": "cc5ae9f0916860b26a03fd8a71d6f33f2fbb90f0b48e21d4f82ac10de6e7a893",
+      "sha256": "63c1c56e72d4bf5102780966124eb07559f061cbb36588c7ed29e5aa0018c418",
       "scene": "private_direct",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -966,7 +966,7 @@
     },
     {
       "path": "mihomo/scenes/sensitive_ai.yaml",
-      "sha256": "868d7fd0bb18936cb923028802312a1c9ea16e1dcf5e709069d1bbf7bebab547",
+      "sha256": "a8f81f3c02bb15167df3855fca05025e22abd3d1f3c0efcc70e6400bcc97e3ea",
       "scene": "sensitive_ai",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -978,11 +978,11 @@
     },
     {
       "path": "mihomo/scenes/streaming_media.yaml",
-      "sha256": "88326815808c93ff62d50ca217235e11c3fa2b6f3e0ce39fa72836bc818c6275",
+      "sha256": "6e9516cb66f79f728532d8b98e8c4fbd5ab3441dab7eecd8bb5d91421a772adc",
       "scene": "streaming_media",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 53,
+      "entries": 52,
       "modules": [
         "disneyplus",
         "netflix",
@@ -993,7 +993,7 @@
     },
     {
       "path": "mihomo/scenes/telegram.yaml",
-      "sha256": "18caff924d75c99479f98a299e1bd170069b13d626b8735636edce51dc8d856e",
+      "sha256": "5d0d07debfe392b0171111547208cb7c8dc2a7a231f07e70d07485b00a30d0c9",
       "scene": "telegram",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -1004,7 +1004,7 @@
     },
     {
       "path": "mihomo/scenes/us_banking_account.yaml",
-      "sha256": "cad8e972d72c40c78c525431c4a4d8e513326266541e743a9f4a4dcb976f79f9",
+      "sha256": "bb19bd652172d17140e7fa194300dfe8932b0f979e85fa415f305f4aa4fdb40b",
       "scene": "us_banking_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -1031,7 +1031,7 @@
     },
     {
       "path": "mihomo/scenes/youtube_media.yaml",
-      "sha256": "13dfb0808c089730f1fc2781bd5d94e48470d6ed45e2ce62f24294e35c89397e",
+      "sha256": "07bd970e3a1916210eaf9ff562dcf53541f5f73b844d105761228127cc41fcdb",
       "scene": "youtube_media",
       "client": "mihomo",
       "format": "rule-provider/classical",
@@ -1042,49 +1042,49 @@
     },
     {
       "path": "mihomo/routing.yaml",
-      "sha256": "67c5c040b1fc9a0a98591805e161560516840e0f6f1a3663cb8c43148bd7dc11",
+      "sha256": "b374182fb0ae4264a7bbcf575bc744048c12a5b8f4d50531aa2ec399d465a830",
       "client": "mihomo",
       "format": "routing-layer",
-      "entries": 19
+      "entries": 18
     },
     {
       "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
-      "sha256": "fa241b8e2b7c59852f2149d3b7395089d6cadcce2981832efcf742b92973278b",
+      "sha256": "dfa9c3235410f094e62d2b1f75be1ef69835c77fb912b7d63e5299e5c14cda72",
       "client": "mihomo",
       "format": "clash-verge-rev-global-adapter"
     },
     {
       "path": "mihomo/hosts/3x-ui.yaml",
-      "sha256": "25734e7d377468b8a2cdd9ca2d1c91a0fb096d2785ed8feaabe34ef9d229ea27",
+      "sha256": "76810ae331c53fae61f3dcb861424dc8f925d68ad95c1d4bc1fa63d20187762a",
       "client": "mihomo",
       "format": "host-routing-layer",
       "host": "3x-ui",
-      "entries": 19
+      "entries": 18
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-standard.yaml",
-      "sha256": "25734e7d377468b8a2cdd9ca2d1c91a0fb096d2785ed8feaabe34ef9d229ea27",
+      "sha256": "76810ae331c53fae61f3dcb861424dc8f925d68ad95c1d4bc1fa63d20187762a",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
       "edition": "standard",
-      "entries": 19
+      "entries": 18
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
-      "sha256": "1eb74c0ce1ec18918720f04634cf6414158eee2c4433645595e57ad14d59acf0",
+      "sha256": "efb9b3556ed4d09ddfff05f21e1ca8d3c45860021c39fb7282a351e095391422",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
       "edition": "strict",
-      "entries": 19
+      "entries": 18
     },
     {
       "path": "shadowrocket/hrules.conf",
-      "sha256": "86f0aa5e4a8857738fbe35e1cfa598534b1376c64de7d9f3304a334eaa804dcc",
+      "sha256": "5f2cc3f63897efd57b69de9dbb16cca32e7dbf71cb4125c45a003f7f3716060a",
       "client": "shadowrocket",
       "format": "complete-config",
-      "entries": 526,
+      "entries": 7085,
       "status": "validating"
     }
   ],
