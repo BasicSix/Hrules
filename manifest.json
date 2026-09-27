@@ -1,9 +1,10 @@
 {
   "schema_version": 2,
-  "version": "v0.1.0-rc1",
-  "channel": "rc",
-  "release_status": "release_candidate",
-  "generated_from_commit": "0cc57d2efafb17fb728969c291be491511d07547",
+  "version": "v0.1.1",
+  "channel": "stable",
+  "release_status": "stable",
+  "publication_gate": "rc",
+  "generated_from_commit": "57fdbad8b5e0c8511dd451e55052b715dd71d914",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
@@ -1085,7 +1086,7 @@
       "client": "shadowrocket",
       "format": "complete-config",
       "entries": 7085,
-      "status": "validating"
+      "status": "available"
     }
   ],
   "skipped_non_publishable_modules": [
@@ -1453,13 +1454,13 @@
         "Clash Verge",
         "Clash Mi"
       ],
-      "status": "validating"
+      "status": "public"
     },
     "shadowrocket": {
       "public_names": [
         "Shadowrocket"
       ],
-      "status": "planned"
+      "status": "public"
     },
     "sing-box": {
       "public_names": [
@@ -1481,5 +1482,5 @@
       "status": "planned"
     }
   },
-  "assurance": "RC artifacts validate routing identification only; they do not guarantee account, authentication, fraud-control, or regional service eligibility."
+  "assurance": "Hrules controls routing classification and egress selection; it does not guarantee account, authentication, fraud-control, or regional service eligibility."
 }
