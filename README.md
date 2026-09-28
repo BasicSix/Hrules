@@ -1,129 +1,133 @@
 # Hrules
 
-## 面向真实使用场景的多客户端分流规则
+**Hrules 是一套面向真实使用场景的代理分流规则。**
 
-Hrules 是一套路由规则，用于在现有机场订阅、自建节点或其他节点来源之上，对网络请求进行识别、归类和路由。
+你继续使用自己的机场订阅、自建节点或其他节点；Hrules 负责解决另一件事：**访问不同服务时，流量到底应该走哪个出口。**
 
-Hrules **不提供代理节点，也不会改变节点本身的线路、IP 或协议能力**。它负责把不同服务的请求归入对应场景，再由用户选择地区或具体节点作为出口。
+## Hrules 解决什么问题？
 
-- **选择地区**：在该地区已有节点之间选择，不自动跨地区切换。
-- **选择具体节点**：该场景固定使用所选节点。
-- **节点来源**：机场订阅、自建节点等继续作为节点资源；启用 Hrules 后，由 Hrules 接管规则匹配与最终兜底。
+很多代理配置只解决“能不能访问”，但实际使用中，同一次登录、同一个网站或同一类账户流量，可能因为规则不完整、默认兜底或自动切换而走向不同节点。
 
-## Hrules 的分流原则
+Hrules 重点解决的是：
 
-> **可控优先于盲目可用。**  
-> Hrules 的核心是保证流量去向和出口节点始终可控、可预期。尤其对于 AI、银行、支付、证券、虚拟货币等敏感场景，**宁可连接失败，也不会在用户不知情的情况下自动切换到其他地区、其他节点或直连出口，避免因出口漂移增加账号风险。**
+- **AI 服务出口可控**：ChatGPT / OpenAI、Claude 等请求进入对应 AI 场景，由你指定地区或具体节点。
+- **金融账户分开控制**：银行、证券 / 券商、支付 / 跨境金融、虚拟货币可以使用独立出口，避免全部混在一个代理组。
+- **避免敏感流量乱飞**：敏感场景不会在用户不知情的情况下回退到 DIRECT、其他地区或其他不可预期出口。
+- **国内网站正常直连**：中国大陆流量使用经过边界保护的 DIRECT 规则，避免宽泛规则把海外服务误判为国内直连。
+- **机场只负责提供节点，Hrules 负责分流**：启用 Hrules 后，不再让机场原有规则决定最终匹配结果；未命中流量也由 Hrules 自己的兜底场景承接。
+- **规则可以持续更新**：服务域名和场景规则通过公共 Rule Provider 维护，规则数据可以独立更新。
 
-## 客户端支持
+> **一句话理解：节点决定“从哪里出去”，Hrules 决定“什么流量从哪个出口出去”。**
 
-| 客户端 / 接入方式 | 状态 | 安装 |
+### 为什么这在实际使用中很重要？
+
+例如你给 ChatGPT 固定选择了一个美国节点，并不代表所有与 ChatGPT 使用过程相关的请求天然都会走这个节点。主站、登录、WebSocket、静态资源、上传等请求可能涉及不同域名；规则是否完整，决定这些请求最终进入哪个场景和出口。
+
+Hrules 的目标不是承诺绕过平台风控，而是让**已经识别并纳入规则的敏感流量，其路由结果可见、可控、可预期**。
+
+→ [详细了解：Hrules 在实际使用中解决什么](docs/what-hrules-solves.md)
+
+## 选择适合你的接入方式
+
+| 客户端 / 接入方式 | 状态 | 适合场景 |
 | --- | --- | --- |
-| **Clash Verge Rev** | ✅ Available | [安装说明](#clash-verge-rev) |
-| **3X-UI Remote Routing → Mihomo** | ✅ Available | [安装说明](#3x-ui-remote-routing) |
-| **Shadowrocket** | ✅ Available | [安装说明](#shadowrocket) |
+| **Clash Verge Rev** | ✅ Available | 已有机场 / Mihomo / 自建订阅，希望叠加 Hrules |
+| **3X-UI 全局路由规则 → Mihomo** | ✅ Available | 使用 3X-UI 向 Mihomo / Clash Verge Rev 下发路由 |
+| **Shadowrocket** | ✅ Available | 使用完整远程配置 |
 
-> 后续计划适配：**Clash Mi、FlClash、sing-box / SFM、v2rayN / v2rayNG、Karing** 等代理客户端。完成配置与真实客户端验证后再加入安装中心。
+> 后续计划适配 Clash Mi、FlClash、sing-box / SFM、v2rayN / v2rayNG、Karing。完成配置与真实客户端验证后再加入安装中心。
 
-## 安装中心
+## 安装
 
 ### Clash Verge Rev
 
-适合已经在 Clash Verge Rev 中使用机场订阅、Mihomo 订阅或自建订阅，希望直接叠加 Hrules 分流的用户。
-
-**标准版 Standard：** [打开 / 复制 JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-standard.js)  
-**精细版 Fine-grained：** [打开 / 复制 JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-strict.js)
-
 在目标订阅中打开 **Subscription Extension Script / 订阅扩展脚本**，复制对应 JS 的完整内容，粘贴、保存并重新更新订阅。
 
-<sub>版本怎么选：标准版适合大多数用户，提供海外应用、流媒体、AI、金融服务和漏网之鱼；精细版进一步独立 Apple / iCloud，并拆分银行、证券 / 券商、支付 / 跨境金融、虚拟货币。精细版继续沿用 `hrules-strict.js` 文件名以保持现有链接兼容。</sub>
+- **标准版 Standard：** [打开 / 复制 JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-standard.js)
+- **精细版 Fine-grained：** [打开 / 复制 JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-strict.js)
 
-→ [查看 Clash Verge Rev / Mihomo 详细说明](docs/kernels/mihomo.md)
+标准版适合大多数用户；精细版进一步拆分 Apple / iCloud、银行、证券 / 券商、支付 / 跨境金融、虚拟货币等出口。
 
-### 3X-UI 路由规则导入
+→ [Clash Verge Rev / Mihomo 详细说明](docs/kernels/mihomo.md)
 
-适合通过 3X-UI 的 **全局路由规则** 向 Mihomo / Clash Verge Rev 下发路由配置。
+### 3X-UI 全局路由规则
 
-**标准版 Standard：**
+**标准版 Standard**
 ```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-standard.yaml
 ```
 
-**精细版 Fine-grained：**
+**精细版 Fine-grained**
 ```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml
 ```
 
-把对应 Raw URL 填入 3X-UI 的 **全局路由规则** 即可。
+把对应 Raw URL 填入 3X-UI 的 **全局路由规则**。
 
-<sub>版本怎么选：标准版界面更简洁，适合日常使用；精细版提供更细的金融与 Apple / iCloud 出口控制。3X-UI **全局路由规则** 负责路由层，DNS / Sniffer 等运行时配置由最终客户端负责。</sub>
-
-→ [查看 3X-UI / Mihomo 详细说明](docs/kernels/mihomo.md#3x-ui--远程路由)
+→ [3X-UI / Mihomo 详细说明](docs/kernels/mihomo.md#3x-ui--远程路由)
 
 ### Shadowrocket
 
-Shadowrocket 使用一份完整远程配置：
+使用完整远程配置：
 
-**配置文件：**
 ```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf
 ```
 
-## Clash verge 分流规则的使用场景
+导入后关闭 **简单模式**。当前提供海外应用、流媒体、AI 服务、金融服务、中国大陆 / 私有网络 DIRECT，以及原生 `FINAL,PROXY` 兜底。
+
+→ [Shadowrocket 详细说明](docs/kernels/shadowrocket.md)
+
+## 场景怎么选？
 
 ### 标准版 Standard
 
-界面主要提供：
-
 `🌐 海外应用 → 📺 流媒体 → 🤖 AI 服务 → 💳 金融服务 → 🚀 漏网之鱼`
 
-- **海外应用**：YouTube、Telegram、TikTok、Instagram、Facebook、WhatsApp、X / Twitter、Discord、Reddit、GitHub 等。
-- **流媒体**：Netflix、Disney+、Prime Video、Spotify、Twitch 等。
-- **AI 服务**：Claude、ChatGPT / OpenAI、Gemini、Grok、Perplexity 等。
-- **金融服务**：银行、证券 / 券商、支付 / 跨境金融、虚拟货币。
-- **漏网之鱼**：承接最终未命中的流量。
+适合希望界面简单、只需要控制主要业务出口的用户。
 
 ### 精细版 Fine-grained
 
-保留海外应用、流媒体和 AI 服务，并独立：
+在海外应用、流媒体和 AI 服务之外，进一步独立：
 
 `🍎 Apple / iCloud → 🏦 银行服务 → 📈 证券 / 券商 → 💳 支付 / 跨境金融 → 💰 虚拟货币`
 
-适合需要把不同金融业务或 Apple / iCloud 分配到不同出口的用户。
+适合需要分别固定不同敏感业务出口的用户。
 
-> Shadowrocket 当前使用单一配置，不跟随上述 Standard / Fine-grained 划分。
+> Shadowrocket 当前使用单一配置，不区分 Standard / Fine-grained。
 
 → [查看场景与规则说明](docs/scenes.md)
 
-## Shadowrocket/小火箭 分流规则的使用场景
+## DNS 与分流
 
-在 Shadowrocket 中通过远程配置导入，并关闭 **简单模式**。当前提供：
+DNS 和代理路由不是一回事：**DNS 决定域名如何解析，Hrules 路由规则决定请求最终进入 DIRECT、代理或具体场景。**
 
-- 🌐 海外应用
-- 📺 流媒体
-- 🤖 AI 服务
-- 💳 金融服务
-- 中国大陆 / 私有网络 DIRECT
-- `FINAL,PROXY` 原生兜底
+当前 Mihomo 接入中，Hrules **不会直接覆盖宿主客户端的整个 DNS 配置**；DNS / TUN / 端口等运行时设置继续由客户端或 Host 负责。Shadowrocket 完整配置则包含对应的客户端 DNS 基线。
 
-<sub>Shadowrocket 当前使用单一配置，不区分标准版 / 精细版；四个场景组可以分别选择现有节点，未命中的代理流量最终交给 Shadowrocket 的 PROXY。</sub>
+遇到“节点能测速，但网站打不开”“规则命中了，但访问仍异常”等问题，应按：
 
-→ [查看 Shadowrocket 详细说明](docs/kernels/shadowrocket.md)
+`域名解析 → 规则命中 → 策略组 → 最终节点 → 实际出口`
 
-## DNS 规则
+逐层检查。
 
-Hrules 在 **Clash Verge Rev / Mihomo** 中提供经过实机验证的 DNS 配置，重点兼顾中国用户常见的机场订阅、自建节点、Reality / Hysteria2、域名节点、IP 节点以及 EdgeTunnel / Cloudflare 优选 IP 等使用方式。
+→ [查看 DNS 与分流说明](docs/dns.md)
 
-- 节点解析与代理 DNS 分离，避免启动阶段循环依赖。
-- 中国大陆 DIRECT 流量使用国内 DNS。
-- 精细版海外 DNS 使用加密 DoH。
-- Fake-IP 保留局域网域名真实解析，并避免 Fake-IP 地址段误判为 DIRECT。
-- 不修改节点的 server、SNI、Host 等传输参数。
-- DNS v0.1 默认关闭 IPv6 DNS，优先保证复杂网络环境下的兼容性。
+## 使用边界
 
-Shadowrocket 使用独立的客户端 DNS 基线，具体配置见安装说明。
+Hrules **不提供代理节点，也不会改变节点本身的线路、IP、协议能力或网络质量**。
 
-→ [查看 DNS 架构说明](docs/dns-architecture-v0.1.md)
+Hrules 负责的是规则识别、场景归类和出口选择。它不能保证第三方平台的账号、认证、风控或地区服务资格，也不能把质量不佳的节点变成高质量线路。
+
+## 文档
+
+- [Hrules 在实际使用中解决什么](docs/what-hrules-solves.md)
+- [Clash Verge Rev / 3X-UI 安装说明](docs/kernels/mihomo.md)
+- [Shadowrocket 安装说明](docs/kernels/shadowrocket.md)
+- [DNS 与分流说明](docs/dns.md)
+- [场景与规则](docs/scenes.md)
+- [隐私与安全边界](docs/security.md)
+
+---
 
 ## 合作与定制
 
@@ -140,35 +144,11 @@ Shadowrocket 使用独立的客户端 DNS 基线，具体配置见安装说明�
 
 ### 商务合作 / 1v1 精准分流定制
 
-**商务合作**
+**商务合作：** 面向机场 / 代理服务、VPS / 云服务器、网络线路、静态住宅代理 / ISP、网络工具与客户端、开发者工具、AI 服务等相关产品，可沟通产品实测、内容合作、赞助、推广及长期合作。
 
-面向与 Hrules、H云端实验室内容方向相关的产品、服务和项目开展合作，包括机场 / 代理服务、VPS / 云服务器、网络线路、静态住宅代理 / ISP、网络工具与客户端、开发者工具、AI 服务等。可沟通产品实测、内容合作、赞助、推广及长期合作。
+**1v1 精准分流定制：** 可根据实际需求，为海外电商、自媒体平台、美股 / 证券投资、虚拟货币、AI 服务、海外金融账户等场景设计独立分流规则和出口策略。定制范围以实际能够识别和验证的请求为准，不承诺覆盖第三方网站或应用产生的全部网络请求，也不承诺规避平台风控、账号审核或封禁。
 
-**1v1 精准分流定制**
-
-面向有明确业务或使用场景、希望对不同网络流量分别控制出口的用户。可根据实际需求，为 **海外电商、自媒体平台、美股 / 证券投资、虚拟货币、AI 服务、海外金融账户** 等场景设计独立分流规则和出口策略。
-
-定制重点不是简单增加域名，而是根据实际使用的服务，对已确认请求进行识别和归类，并按照需求配置 **指定地区或指定节点**。
-
-定制范围以实际能够识别和验证的请求为准，不承诺覆盖第三方网站或应用产生的全部网络请求，也不承诺规避平台风控、账号审核或封禁。
-
-**隐私边界**
-
-1v1 定制**不需要提供账号、密码、验证码、Cookie、Token、私钥等账号凭据，也不接收账户资产或交易信息**。
-
-**联系方式**
+**隐私边界：** 不需要提供账号、密码、验证码、Cookie、Token、私钥等账号凭据，也不接收账户资产或交易信息。
 
 **Email：** hexa46656@gmail.com  
 **Telegram：** @hcloudlab
-
-## Documentation
-
-- [Clash Verge Rev / 3X-UI 安装说明](docs/kernels/mihomo.md)
-- [Shadowrocket 安装说明](docs/kernels/shadowrocket.md)
-- [DNS 与分流说明](docs/dns.md)
-- [场景与规则](docs/scenes.md)
-- [隐私与安全边界](docs/security.md)
-
----
-
-**Hrules = 分流规则层。机场 / 自建节点 / 其他节点来源 = 节点层。**
