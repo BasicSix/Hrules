@@ -4,7 +4,7 @@
   "channel": "stable",
   "release_status": "stable",
   "publication_gate": "rc",
-  "generated_from_commit": "57fdbad8b5e0c8511dd451e55052b715dd71d914",
+  "generated_from_commit": "1dbeda983dc9d496b57dfbd370ba327fba12bfc6",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
@@ -1082,7 +1082,7 @@
     },
     {
       "path": "shadowrocket/hrules.conf",
-      "sha256": "5f2cc3f63897efd57b69de9dbb16cca32e7dbf71cb4125c45a003f7f3716060a",
+      "sha256": "ba0b7b8d36765bb802163e2d9d194a6011c1d227c85e997aedcab2d33e5bb85c",
       "client": "shadowrocket",
       "format": "complete-config",
       "entries": 7085,
